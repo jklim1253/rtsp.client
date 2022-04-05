@@ -81,6 +81,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="rtsp.client.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="rtsp.client.hpp" />
+    <ClInclude Include="rtsp.error.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
