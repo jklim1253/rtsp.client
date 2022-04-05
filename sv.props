@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)_deploy\bin\x$(PlatformArchitecture)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)_itm\$(ProjectName)\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <PostBuildEvent Condition="'$(ConfigurationType)' == 'DynamicLibrary'">
+      <Command>XCOPY /Y /I /R "$(ProjectDir)*.hpp" "$(SolutionDir)_deploy\include\$(ProjectName)\"
+ATTRIB +R "$(SolutionDir)_deploy\include\$(ProjectName)\*.hpp"</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)_deploy\lib\x$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)_deploy\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link Condition="'$(ConfigurationType)' == 'DynamicLibrary'">
+      <ImportLibrary>$(SolutionDir)_deploy\lib\x$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
